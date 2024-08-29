@@ -9,9 +9,9 @@ public class PedidoService {
     private PedidoRepository pedidoRepository;
     private ProdutoRepository produtoRepository;
 
-    public PedidoService(PedidoRepository pedidoRepository, ProdutoRepository produtoRepository) {
-        this.pedidoRepository = pedidoRepository;
-        this.produtoRepository = produtoRepository;
+    public PedidoService() {
+        this.pedidoRepository = new PedidoRepository();
+        this.produtoRepository = new ProdutoRepository();
     }
 
     public void adicionarProdutoAoPedido(int pedidoId, int produtoId) {

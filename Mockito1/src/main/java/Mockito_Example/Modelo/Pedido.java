@@ -4,8 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pedido {
-    private List<Produto> produtos = new ArrayList<>();
+    
+    private int id;
     private boolean pago = false;
+    private List<Produto> produtos = new ArrayList<>();
+
+    public Pedido() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
 
     public void adicionarProduto(Produto produto) {
         produtos.add(produto);

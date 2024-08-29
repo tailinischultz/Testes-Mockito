@@ -1,13 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Mockito_Example.Modelo;
 
-/**
- *
- * @author 11941578900
- */
 public class Produto {
     private int id;
     private String nome;
@@ -31,4 +24,6 @@ public class Produto {
     public double getPreco() {
         return preco;
     }
+    
+    
 }
