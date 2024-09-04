@@ -33,6 +33,9 @@ public class TestPedidoService {
     @Mock 
     private Produto produtoMock;
     
+    @InjectMocks
+    private PedidoService pedidoService;
+    
     
     /* Substitui as linhas de @Mock e @InjectMocks, pois cria os mocks manualmente. 
     Útil qnd é preciso configurações mt específicas ou n pode utilizar anotações
@@ -104,6 +107,36 @@ public class TestPedidoService {
         //Verifica se os métodos findById foram chamados com os IDs corretos
         Mockito.verify(produtoRepositoryMock, Mockito.times(1)).findById(1);
         Mockito.verify(produtoRepositoryMock, Mockito.times(1)).findById(2);
+    }
+    
+    @Test
+    public void testPagamentoPedido() {
+        //Simula o comportamento dos métodos do mock
+        Produto produto = new Produto(1, "Produto A", 100.0);
+        Produto produto2 = new Produto(2, "Produto B", 50.0);
+        Pedido pedido = new Pedido(1, produtoServiceMock);
+
+        //Simula os repositórios retornando os produtos e o pedido
+        Mockito.when(produtoRepositoryMock.findById(1)).thenReturn(produto);
+        Mockito.when(produtoRepositoryMock.findById(2)).thenReturn(produto2);
+        Mockito.when(pedidoRepositoryMock.findById(1)).thenReturn(pedido);
+
+        //Adiciona os produtos ao pedido através do serviço
+        pedidoService.adicionarProdutoAoPedido(1, 1);
+        pedidoService.adicionarProdutoAoPedido(1, 2);
+
+        //Verifica o total antes do pagamento
+        double totalAntesPagamento = pedidoService.calcularTotalDoPedido(1);
+        Assert.assertEquals(150.0, totalAntesPagamento, 0.01);
+
+        //Realiza o pagamento
+        pedidoService.pagarPedido(1);
+
+        //Verifica se o pedido foi marcado como pago
+        Assert.assertTrue(pedido.isPago());
+
+        //Verifica se o pedido pago foi persistido no repositório
+        Mockito.verify(pedidoRepositoryMock, Mockito.times(1)).add(pedido);
     }
 
 }
