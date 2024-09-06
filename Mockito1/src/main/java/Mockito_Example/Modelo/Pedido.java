@@ -6,13 +6,23 @@ import java.util.List;
 
 public class Pedido {
     
+    private static int idCount = 0;
     private int id;
-    private boolean pago = false;
-    private List<Produto> produtos = new ArrayList<>();
+    private boolean pago;
+    private List<Produto> produtos;
     private ProdutoService produtoService;
+    
+    public Pedido(){
+        this.id = idCount++;
+        this.pago = false;
+        produtos = new ArrayList();
+        this.produtoService = new ProdutoService();
+    }
 
     public Pedido(int id, ProdutoService produtoService) {
+        this.pago = false;
         this.id = id;
+        produtos = new ArrayList();
         this.produtoService = produtoService;
     }
 
@@ -28,8 +38,8 @@ public class Pedido {
         return produtos;
     }
 
-    public void adicionarProduto(Produto produto) {
-        produtos.add(produto);
+    public boolean addProduto(Produto produto) {
+        return produtos.add(produto);
     }
 
     public double calcularTotal() {

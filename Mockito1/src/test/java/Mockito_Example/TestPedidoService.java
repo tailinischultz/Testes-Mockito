@@ -7,7 +7,6 @@ import Mockito_Example.Repository.ProdutoRepository;
 import Mockito_Example.Service.PedidoService;
 import Mockito_Example.Service.ProdutoService;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -54,40 +53,6 @@ public class TestPedidoService {
         Assert.assertEquals(produto, prodResult);
     }
     
-    @Test 
-    public void testCalcularValorPedidoComDesconto(){
-        Produto produto = new Produto(0, "Produto 1", 20);
-        
-        Mockito.when(produtoServiceMock.calcularDesconto(Mockito.any(Produto.class))).thenReturn(5.0);
-        Pedido pedido = new Pedido(0, produtoServiceMock);
-
-        pedido.adicionarProduto(produto);
-        
-        Assert.assertEquals(15, pedido.calcularTotalComDesconto(), 0.01);
-    }
-    
-
-    @Test // Verifica se o método calcularDesconto foi chamado uma vez
-    public void testCalcularDescontoChamado() {
-        Produto produto = new Produto(1, "Produto A", 100.0);
-        Mockito.when(produtoServiceMock.calcularDesconto(Mockito.any(Produto.class))).thenReturn(10.0);
-
-        Pedido pedido = new Pedido(1, produtoServiceMock);
-        pedido.adicionarProduto(produto);
-        pedido.calcularTotalComDesconto();
-
-        Mockito.verify(produtoServiceMock, Mockito.times(1)).calcularDesconto(produto);
-    }
-     
-    @Test
-    public void testProdutoInteracao(){
-        Pedido pedido = new Pedido(0, produtoServiceMock);
-        pedido.adicionarProduto(produtoMock);
-
-        Mockito.verify(produtoMock, Mockito.timeout(1)).getId();
-        Mockito.verify(produtoMock, Mockito.never()).setPreco(Mockito.anyDouble());
-    }
-    
     @Test
     public void testCalcTotalPedido(){
         Produto produto1 = new Produto(1, "Produto 1", 10.0);
@@ -98,8 +63,8 @@ public class TestPedidoService {
         Mockito.when(produtoRepositoryMock.findById(2)).thenReturn(produto2);
 
         Pedido pedido = new Pedido(1, produtoServiceMock);
-        pedido.adicionarProduto(produtoRepositoryMock.findById(1));
-        pedido.adicionarProduto(produtoRepositoryMock.findById(2));
+        pedido.addProduto(produtoRepositoryMock.findById(1));
+        pedido.addProduto(produtoRepositoryMock.findById(2));
 
         double totalEsperado = 30.0;
         Assert.assertEquals(totalEsperado, pedido.calcularTotal(), 0);

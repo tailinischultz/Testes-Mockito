@@ -18,7 +18,7 @@ public class PedidoService {
         Pedido pedido = pedidoRepository.findById(pedidoId);
         Produto produto = produtoRepository.findById(produtoId);
         if (pedido != null && produto != null) {
-            pedido.adicionarProduto(produto);
+            pedido.addProduto(produto);
         }
     }
 
