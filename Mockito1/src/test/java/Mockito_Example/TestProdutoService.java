@@ -32,10 +32,10 @@ public class TestProdutoService {
 
         pedido.addProduto(produto);
 
-        Assert.assertEquals(15, pedido.calcularTotalComDesconto(), 0.01);
+        Assert.assertEquals(15, pedido.calcularTotalComDesconto(), 0);
     }
 
-    @Test // Verifica se o método calcularDesconto foi chamado uma vez
+    @Test
     public void testCalcularDescontoChamado() {
         Produto produto = new Produto(1, "Produto A", 100.0);
         Mockito.when(produtoServiceMock.calcularDesconto(Mockito.any(Produto.class))).thenReturn(10.0);
