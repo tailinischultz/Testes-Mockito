@@ -6,9 +6,9 @@ import java.util.List;
 
 public class ProdutoRepository {
 
-    List<Produto> produtos = new ArrayList();
+    private List<Produto> produtos = new ArrayList();
 
-    public Produto findById(int id) {
+    public Produto buscarPorID(int id) {
         for (Produto prod : produtos) {
             if (prod.getId() == id) {
                 return prod;

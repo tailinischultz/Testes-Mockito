@@ -12,7 +12,7 @@ public class PedidoRepository {
         pedidos.add(pedido);
     }
 
-    public Pedido findById(int id) {
+    public Pedido buscarPorID(int id) {
         for (Pedido ped : pedidos) {
             if (ped.getId() == id) {
                 return ped;

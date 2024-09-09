@@ -27,20 +27,18 @@ public class TestProdutoService {
     @Test
     public void testCalcularValorPedidoComDesconto() {
         Produto produto = new Produto(0, "Produto 1", 20);
-
-        Mockito.when(produtoServiceMock.calcularDesconto(Mockito.any(Produto.class))).thenReturn(5.0);
-
         pedido.addProduto(produto);
 
+        Mockito.when(produtoServiceMock.calcularDesconto(Mockito.any(Produto.class))).thenReturn(5.0);
         Assert.assertEquals(15, pedido.calcularTotalComDesconto(), 0);
     }
 
     @Test
     public void testCalcularDescontoChamado() {
         Produto produto = new Produto(1, "Produto A", 100.0);
-        Mockito.when(produtoServiceMock.calcularDesconto(Mockito.any(Produto.class))).thenReturn(10.0);
-
         pedido.addProduto(produto);
+
+        Mockito.when(produtoServiceMock.calcularDesconto(Mockito.any(Produto.class))).thenReturn(10.0);
         pedido.calcularTotalComDesconto();
 
         Mockito.verify(produtoServiceMock, Mockito.times(1)).calcularDesconto(produto);
