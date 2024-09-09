@@ -7,6 +7,8 @@ import Mockito_Example.Repository.ProdutoRepository;
 import Mockito_Example.Service.PedidoService;
 import Mockito_Example.Service.ProdutoService;
 import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -31,9 +33,9 @@ public class TestPedidoService {
     
     
     @Test
-    public void testBuscarProdutoByIDEspecifico(){
+    public void testBuscarProdutoByIDEspecifico() throws Exception{
         Produto produto = new Produto(0, "Produto 1", 10);
-        Mockito.when(produtoRepositoryMock.buscarPorID(Mockito.anyInt())).thenReturn(produto);
+        Mockito.when(produtoRepositoryMock.buscarPorID(0)).thenReturn(produto);
         
         Produto prodResult = produtoRepositoryMock.buscarPorID(0);
         
@@ -41,27 +43,16 @@ public class TestPedidoService {
     }
     
     @Test
-    public void testBuscarProdutoByQualquerID(){
+    public void testBuscarProdutoByQualquerID() throws Exception{
         Produto produto = new Produto(0, "Produto 1", 10);
         Mockito.when(produtoRepositoryMock.buscarPorID(Mockito.anyInt())).thenReturn(produto);
         
-        Produto prodResult = produtoRepositoryMock.buscarPorID(0);
-        
+        Produto prodResult = produtoRepositoryMock.buscarPorID(10);
         Assert.assertEquals(produto, prodResult);
     }
-    
+   
     @Test
-    public void testBuscarProdutoByIDExcecao(){
-        Produto produto = new Produto(0, "Produto 1", 10);
-        Mockito.when(produtoRepositoryMock.buscarPorID(Mockito.anyInt())).thenReturn(produto);
-        
-        Produto prodResult = produtoRepositoryMock.buscarPorID(0);
-        
-        Assert.assertEquals(produto, prodResult);
-    }
-    
-    @Test
-    public void testCalcTotalPedido(){
+    public void testCalcTotalPedido() throws Exception{
         Produto produto1 = new Produto(1, "Produto 1", 10.0);
         Produto produto2 = new Produto(2, "Produto 2", 20.0);
 
@@ -82,7 +73,7 @@ public class TestPedidoService {
     }
     
     @Test
-    public void testPagamentoPedido() {
+    public void testPagamentoPedido() throws Exception {
         //Simula o comportamento dos métodos do mock
         Produto produto = new Produto(1, "Produto A", 100.0);
         Produto produto2 = new Produto(2, "Produto B", 50.0);

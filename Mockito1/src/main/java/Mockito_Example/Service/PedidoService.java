@@ -14,7 +14,7 @@ public class PedidoService {
         this.produtoRepository = new ProdutoRepository();
     }
 
-    public void adicionarProdutoAoPedido(int pedidoId, int produtoId) {
+    public void adicionarProdutoAoPedido(int pedidoId, int produtoId) throws Exception {
         Pedido pedido = pedidoRepository.buscarPorID(pedidoId);
         Produto produto = produtoRepository.buscarPorID(produtoId);
         if (pedido != null && produto != null) {
